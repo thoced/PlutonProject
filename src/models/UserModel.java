@@ -78,7 +78,7 @@ public class UserModel extends ModelBase {
 
     @Override
     public String toString() {
-        return "UserModel{" +
+        return super.toString() + "UserModel{" +
                 "nom=" + nom +
                 ", prenom=" + prenom +
                 ", login=" + login +
