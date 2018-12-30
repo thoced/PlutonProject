@@ -1,5 +1,6 @@
 package models;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 /**
@@ -8,9 +9,9 @@ import javafx.beans.property.StringProperty;
 
 public class DossierModel extends ModelBase {
 
-    private StringProperty name;
+    private StringProperty name = new SimpleStringProperty();
 
-    private StringProperty comment;
+    private StringProperty comment = new SimpleStringProperty();
 
     public String getName() {
         return name.get();

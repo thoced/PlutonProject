@@ -1,5 +1,6 @@
 package models;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 /**
@@ -8,9 +9,9 @@ import javafx.beans.property.StringProperty;
 
 public class EventModel extends ModelBase {
 
-    private StringProperty start_time;
+    private StringProperty start_time = new SimpleStringProperty();
 
-    private StringProperty end_time;
+    private StringProperty end_time = new SimpleStringProperty();
 
     public String getStart_time() {
         return start_time.get();

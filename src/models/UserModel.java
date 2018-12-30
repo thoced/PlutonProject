@@ -1,5 +1,6 @@
 package models;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 /**
@@ -8,13 +9,13 @@ import javafx.beans.property.StringProperty;
 
 public class UserModel extends ModelBase {
 
-    private StringProperty nom;
+    private StringProperty nom = new SimpleStringProperty();
 
-    private StringProperty prenom;
+    private StringProperty prenom = new SimpleStringProperty();
 
-    private StringProperty login;
+    private StringProperty login = new SimpleStringProperty();
 
-    private StringProperty password;
+    private StringProperty password = new SimpleStringProperty();
 
     private long ref_id_sections;
 
@@ -73,5 +74,16 @@ public class UserModel extends ModelBase {
 
     public void setRef_id_sections(long ref_id_sections) {
         this.ref_id_sections = ref_id_sections;
+    }
+
+    @Override
+    public String toString() {
+        return "UserModel{" +
+                "nom=" + nom +
+                ", prenom=" + prenom +
+                ", login=" + login +
+                ", password=" + password +
+                ", ref_id_sections=" + ref_id_sections +
+                '}';
     }
 }
