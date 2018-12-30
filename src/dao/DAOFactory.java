@@ -14,6 +14,7 @@ public class DAOFactory {
         return instance;
     }
 
+    public DAO getUserDAO() {return new UserDAO();}
 
    //  public DAO getEVENT_DAO() {return new EventDAO();}
 
