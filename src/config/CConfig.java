@@ -125,8 +125,8 @@ public class CConfig
     {
         // récupération du home directory
         pathHomeDirectory = System.getProperty("user.home");
-        pathDirectoryConfig = pathHomeDirectory + File.separator + "polecoute";
-        pathFileConfig = pathDirectoryConfig + File.separator + "polecouteconfig.cfg";
+        pathDirectoryConfig = pathHomeDirectory + File.separator + "plutonproject";
+        pathFileConfig = pathDirectoryConfig + File.separator + "plutonconfig.cfg";
 
         // création d'un répertoire option
         File file = new File(pathDirectoryConfig);
@@ -161,7 +161,7 @@ public class CConfig
         prop.setProperty("login","");
         prop.setProperty("password","");
         prop.setProperty("driver","com.mysql.cj.jdbc.Driver");
-        prop.setProperty("url", "jdbc:mysql://localhost/db_nicetrack?serverTimezone=UTC");
+        prop.setProperty("url", "jdbc:mysql://localhost/db_pluton?serverTimezone=UTC");
         prop.setProperty("F1","- Numéro cible: ");
         prop.setProperty("F2","- Numéro correspondant: ");
 
