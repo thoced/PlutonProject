@@ -27,7 +27,6 @@ public class UserDAO extends DAO<UserModel> {
     @Override
     public void delete(long id) throws SQLException {
         PreparedStatement ps = SingletonConnection.getInstance().getConnection().prepareStatement("delete from t_users where id = ?");
-        ps.executeQuery("delete from t_user where id = ?");
         ps.setLong(1,id);
         ps.executeUpdate();
 
