@@ -31,7 +31,7 @@ public class SingletonConnection {
                 Class.forName(config.getDriver());
                 String url = config.getUrl();
                 connection = DriverManager.getConnection(url,config.getLogin(),config.getPassword());
-                int i=0;
+               
             }
 
 
