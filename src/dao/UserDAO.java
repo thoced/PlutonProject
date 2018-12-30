@@ -14,7 +14,7 @@ public class UserDAO extends DAO<UserModel> {
 
     @Override
     public void insert(UserModel model) throws SQLException {
-        PreparedStatement ps = SingletonConnection.getInstance().getConnection().prepareStatement("insert into t_users (nom,prenom,login,password) VALUES (?,?,?,?,?)");
+        PreparedStatement ps = SingletonConnection.getInstance().getConnection().prepareStatement("insert into t_users (nom,prenom,login,password,ref_id_sections) VALUES (?,?,?,?,?)");
         ps.setString(1,model.getNom());
         ps.setString(2,model.getPrenom());
         ps.setString(3,model.getLogin());
