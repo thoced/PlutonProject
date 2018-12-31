@@ -7,8 +7,8 @@ Pour travailler sur le projet, réaliser un FORK de ce dernier.
 
 Une fois les modifications effectuées, proposer un PULL Request
 
-La rubrique "Issues" sert à pousser les problemes détectés 
+La rubrique "Issues" sert à pousser les problemes détectés ainsi que les ToDo attribués
 
-La rubrique "Projects" sert à définir les tâches en cours
+
 
 
