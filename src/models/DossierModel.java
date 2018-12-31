@@ -13,6 +13,8 @@ public class DossierModel extends ModelBase {
 
     private StringProperty comment = new SimpleStringProperty();
 
+    private long ref_id_sections;
+
     public String getName() {
         return name.get();
     }
@@ -35,5 +37,22 @@ public class DossierModel extends ModelBase {
 
     public void setComment(String comment) {
         this.comment.set(comment);
+    }
+
+    public long getRef_id_sections() {
+        return ref_id_sections;
+    }
+
+    public void setRef_id_sections(long ref_id_sections) {
+        this.ref_id_sections = ref_id_sections;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() +  " DossierModel{" +
+                "name=" + name +
+                ", comment=" + comment +
+                ", ref_id_sections=" + ref_id_sections +
+                '}';
     }
 }
