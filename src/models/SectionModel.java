@@ -36,4 +36,12 @@ public class SectionModel extends ModelBase{
     public void setComment(String comment) {
         this.comment.set(comment);
     }
+
+    @Override
+    public String toString() {
+        return super.toString() +  " SectionModel{" +
+                "name=" + name +
+                ", comment=" + comment +
+                '}';
+    }
 }
