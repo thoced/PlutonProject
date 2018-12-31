@@ -10,6 +10,11 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @class class DAO relatif aux acces DB pour les Users
+ * @author thonon cedric
+ */
+
 public class UserDAO extends DAO<UserModel> {
 
     @Override

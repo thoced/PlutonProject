@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  * @class class DAO pour les acces DB relatif à la section
- *
+ * @author thonon cedric
  */
 
 public class SectionDAO extends DAO<SectionModel> {
