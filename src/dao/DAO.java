@@ -3,6 +3,11 @@ package dao;
 import java.sql.SQLException;
 import java.util.List;
 
+/**
+ * @author thonon cedric
+ * @param <T>:
+ */
+
 public abstract class DAO<T>{
 
     public abstract void insert(T model) throws SQLException;
