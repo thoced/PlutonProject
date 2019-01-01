@@ -26,6 +26,7 @@ public class DossierDAO extends DAO<DossierModel> {
         ps.setString(2,model.getComment());
         ps.setLong(3,model.getRef_id_sections());
         ps.executeUpdate();
+        ps.close();
 
     }
 
@@ -34,6 +35,7 @@ public class DossierDAO extends DAO<DossierModel> {
         PreparedStatement ps = SingletonConnection.getInstance().getConnection().prepareStatement("delete from t_dossiers where id = ?");
         ps.setLong(1,id);
         ps.executeUpdate();
+        ps.close();
     }
 
     @Override
@@ -46,6 +48,7 @@ public class DossierDAO extends DAO<DossierModel> {
         ps.setLong(3,model.getRef_id_sections());
         ps.setLong(4,model.getId());
         ps.executeUpdate();
+        ps.close();
     }
 
     @Override
@@ -60,6 +63,7 @@ public class DossierDAO extends DAO<DossierModel> {
             model.setComment(resultSet.getString("comment"));
             model.setRef_id_sections(resultSet.getLong("ref_id_sections"));
         }
+        ps.close();
         return model;
     }
 
@@ -76,6 +80,7 @@ public class DossierDAO extends DAO<DossierModel> {
             model.setRef_id_sections(resultSet.getLong("ref_id_sections"));
             list.add(model);
         }
+        st.close();
         return list;
     }
 
@@ -93,6 +98,7 @@ public class DossierDAO extends DAO<DossierModel> {
             model.setRef_id_sections(resultSet.getLong("ref_id_sections"));
             list.add(model);
         }
+        ps.close();
         return list;
     }
 }
