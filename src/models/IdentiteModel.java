@@ -14,7 +14,7 @@ public class IdentiteModel extends ModelBase {
 
     private StringProperty identite = new SimpleStringProperty();
 
-    private long ref_id_dossiers;
+    private long ref_id_observations;
 
     public String getNumero() {
         return numero.get();
@@ -40,12 +40,12 @@ public class IdentiteModel extends ModelBase {
         this.identite.set(identite);
     }
 
-    public long getRef_id_dossiers() {
-        return ref_id_dossiers;
+    public long getRef_id_observations() {
+        return ref_id_observations;
     }
 
-    public void setRef_id_dossiers(long ref_id_dossiers) {
-        this.ref_id_dossiers = ref_id_dossiers;
+    public void setRef_id_observations(long ref_id_observations) {
+        this.ref_id_observations = ref_id_observations;
     }
 
     @Override
@@ -53,7 +53,7 @@ public class IdentiteModel extends ModelBase {
         return super.toString() + " IdentiteModel{" +
                 "numero=" + numero +
                 ", identite=" + identite +
-                ", ref_id_dossiers=" + ref_id_dossiers +
+                ", ref_id_observations=" + ref_id_observations +
                 '}';
     }
 }
