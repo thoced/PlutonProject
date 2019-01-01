@@ -4,10 +4,7 @@ import config.SingletonConnection;
 import models.IdentiteModel;
 import models.UserModel;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,11 +17,46 @@ public class IdentiteDAO extends DAO<IdentiteModel> {
 
     @Override
     public void insert(IdentiteModel model) throws SQLException {
-        PreparedStatement ps = SingletonConnection.getInstance().getConnection().prepareStatement("insert into t_identites (numero,identite,ref_id_dossiers) VALUES (?,?,?)");
-        ps.setString(1,model.getNumero());
-        ps.setString(2,model.getIdentite());
-        ps.setLong(3,model.getRef_id_dossiers());
-        ps.executeUpdate();
+
+        PreparedStatement ps = null;
+        try {
+            SingletonConnection.getInstance().getConnection().setAutoCommit(false);
+            ps = SingletonConnection.getInstance().getConnection().prepareStatement("insert into t_identites (numero,identite) VALUES (?,?)", Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, model.getNumero());
+            ps.setString(2, model.getIdentite());
+            ps.executeUpdate();
+            ResultSet r = ps.getGeneratedKeys();
+            r.next();
+            long id = r.getInt(1);
+            ps.close();
+            // création du lien
+            ps = SingletonConnection.getInstance().getConnection().prepareStatement("insert into t_link_identites_observations (ref_id_identites,ref_id_observations) VALUES (?,?)");
+            ps.setLong(1, id);
+            ps.setLong(2, model.getRef_id_dossiers());
+            ps.executeUpdate();
+            ps.close();
+        }
+        catch(SQLIntegrityConstraintViolationException sic){
+            // le couple numero, identité existe déja, on ajoute simplement une relation dans la table t_link_identites_observations
+            ps = SingletonConnection.getInstance().getConnection().prepareStatement("select id from t_identites where numero = ? AND identite = ?");
+            ps.setString(1,model.getNumero());
+            ps.setString(2,model.getIdentite());
+            ResultSet resultSet = ps.executeQuery();
+            if(resultSet.next()){
+                long id = resultSet.getLong("id");
+                ps.close();
+                ps = SingletonConnection.getInstance().getConnection().prepareStatement("insert into t_link_identites_observations (ref_id_identites,ref_id_observations) VALUES (?,?)");
+                ps.setLong(1,id);
+                ps.setLong(2,model.getRef_id_dossiers());
+                ps.executeUpdate();
+                ps.close();
+            }
+        }
+
+        finally {
+            SingletonConnection.getInstance().getConnection().commit();
+            SingletonConnection.getInstance().getConnection().setAutoCommit(true);
+        }
 
     }
 
@@ -33,6 +65,7 @@ public class IdentiteDAO extends DAO<IdentiteModel> {
         PreparedStatement ps = SingletonConnection.getInstance().getConnection().prepareStatement("delete from t_identites where id = ?");
         ps.setLong(1,id);
         ps.executeUpdate();
+        ps.close();
 
     }
 
@@ -45,6 +78,7 @@ public class IdentiteDAO extends DAO<IdentiteModel> {
         ps.setString(2,model.getIdentite());
         ps.setLong(3,model.getId());
         ps.executeUpdate();
+        ps.close();
 
     }
 
@@ -60,6 +94,7 @@ public class IdentiteDAO extends DAO<IdentiteModel> {
             model.setIdentite(resultSet.getString("identite"));
             model.setRef_id_dossiers(resultSet.getLong("ref_id_dossiers"));
         }
+        ps.close();
         return model;
     }
 
@@ -77,6 +112,7 @@ public class IdentiteDAO extends DAO<IdentiteModel> {
             model.setRef_id_dossiers(resultSet.getLong("ref_id_dossiers"));
             list.add(model);
         }
+        ps.close();
         return list;
     }
 
@@ -94,6 +130,7 @@ public class IdentiteDAO extends DAO<IdentiteModel> {
             model.setRef_id_dossiers(resultSet.getLong("ref_id_dossiers"));
             list.add(model);
         }
+        ps.close();
         return list;
     }
 
@@ -110,6 +147,7 @@ public class IdentiteDAO extends DAO<IdentiteModel> {
             model.setRef_id_dossiers(resultSet.getLong("ref_id_dossiers"));
             list.add(model);
         }
+        st.close();
         return list;
     }
 
@@ -127,6 +165,7 @@ public class IdentiteDAO extends DAO<IdentiteModel> {
             model.setRef_id_dossiers(resultSet.getLong("ref_id_dossiers"));
             list.add(model);
         }
+        ps.close();
         return list;
     }
 }
