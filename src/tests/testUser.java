@@ -13,7 +13,13 @@ public class testUser {
     public static void main(String[] args) {
 
         try {
-                DAOFactory.getInstance().getUserDAO().delete(2);
+                UserModel model = new UserModel();
+                model.setNom("thonon");
+                model.setPrenom("cedric");
+                model.setPassword("12345678");
+                model.setLogin("446207070");
+                model.setRef_id_sections(1);
+                DAOFactory.getInstance().getUserDAO().insert(model);
 
 
 

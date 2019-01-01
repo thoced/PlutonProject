@@ -58,7 +58,7 @@ public class testSection {
             SectionModel model = (SectionModel) DAOFactory.getInstance().getSectionDAO().find(2);
 
             testSection testSection = new testSection();
-            testSection.selectAll();
+            testSection.addSection();
 
         } catch (SQLException e) {
             e.printStackTrace();

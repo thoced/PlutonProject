@@ -12,7 +12,7 @@ public class testDossier {
     public static void main(String[] args) {
 
         testDossier testDossier = new testDossier();
-        testDossier.delete();
+        testDossier.insert();
 
     }
 
@@ -20,7 +20,7 @@ public class testDossier {
         DossierModel model = new DossierModel();
         model.setName("LI_XATMAN");
         model.setComment("vendeur de drogue");
-        model.setRef_id_sections(3);
+        model.setRef_id_sections(1);
         try {
             DAOFactory.getInstance().getDossierDAO().insert(model);
         } catch (SQLException e) {

@@ -13,14 +13,14 @@ public class testIdentite {
     public static void main(String[] args) {
 
        testIdentite testIdentite = new testIdentite();
-       testIdentite.delete();
+       testIdentite.findObservation();
     }
 
     public void insert(){
         IdentiteModel model = new IdentiteModel();
-        model.setNumero("32494386461");
-        model.setIdentite("Thonon cedric");
-        model.setRef_id_dossiers(2);
+        model.setNumero("32465335474");
+        model.setIdentite("DENIS Meliza");
+        model.setRef_id_observations(3);
         try {
             ((IdentiteDAO)DAOFactory.getInstance().getIdentiteDAO()).insert(model);
         } catch (SQLException e) {
@@ -28,9 +28,23 @@ public class testIdentite {
         }
     }
 
+    public void find(){
+        try {
+            IdentiteModel model = ((IdentiteDAO)DAOFactory.getInstance().getIdentiteDAO()).find(17);
+
+
+                    System.out.println(model);
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
     public void findNumero(){
         try {
-            List<IdentiteModel> list = ((IdentiteDAO)DAOFactory.getInstance().getIdentiteDAO()).findNumero("386461");
+            List<IdentiteModel> list = ((IdentiteDAO)DAOFactory.getInstance().getIdentiteDAO()).findNumero("74");
             if(list != null){
                 for(IdentiteModel m : list){
                     System.out.println(m);
@@ -43,7 +57,20 @@ public class testIdentite {
 
     public void findIdentite(){
         try {
-            List<IdentiteModel> list = ((IdentiteDAO)DAOFactory.getInstance().getIdentiteDAO()).findIdentite("ThONON ced");
+            List<IdentiteModel> list = ((IdentiteDAO)DAOFactory.getInstance().getIdentiteDAO()).findIdentite("DENIS");
+            if(list != null){
+                for(IdentiteModel m : list){
+                    System.out.println(m);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void findObservation(){
+        try {
+            List<IdentiteModel> list = ((IdentiteDAO)DAOFactory.getInstance().getIdentiteDAO()).selectFromForeignKey(3);
             if(list != null){
                 for(IdentiteModel m : list){
                     System.out.println(m);

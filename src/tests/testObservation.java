@@ -12,15 +12,15 @@ public class testObservation {
     public static void main(String[] args) {
 
         testObservation testObservation = new testObservation();
-        testObservation.select();
+        testObservation.insert();
 
     }
 
     public void insert(){
         ObservationModel model = new ObservationModel();
-        model.setNamefile("45687.xlsx");
-        model.setComment("rien");
-        model.setRef_id_dossiers(2);
+        model.setNamefile("12345.xlsx");
+        model.setComment("yooo");
+        model.setRef_id_dossiers(1);
         try {
             DAOFactory.getInstance().getObservationDAO().insert(model);
         } catch (SQLException e) {
