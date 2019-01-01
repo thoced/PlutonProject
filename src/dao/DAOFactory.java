@@ -17,6 +17,7 @@ public class DAOFactory {
     public DAO getUserDAO() {return new UserDAO();}
     public DAO getSectionDAO() {return new SectionDAO();}
     public DAO getDossierDAO() {return new DossierDAO();}
+    public DAO getIdentiteDAO() {return new IdentiteDAO();}
 
 
    //  public DAO getEVENT_DAO() {return new EventDAO();}
