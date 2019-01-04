@@ -13,13 +13,19 @@ public class testIdentite {
     public static void main(String[] args) {
 
        testIdentite testIdentite = new testIdentite();
-       testIdentite.findObservation();
+       testIdentite.insert();
     }
 
     public void insert(){
         IdentiteModel model = new IdentiteModel();
         model.setNumero("32465335474");
-        model.setIdentite("DENIS Meliza");
+        model.setNom("DENIS");
+        model.setPrenom("Meliza");
+        model.setAdresse("Rue de l'écureuil");
+        model.setNum("12");
+        model.setCodePostal("1");
+        model.setCodePostal("4100");
+        model.setVille("Seraing");
         model.setRef_id_observations(3);
         try {
             ((IdentiteDAO)DAOFactory.getInstance().getIdentiteDAO()).insert(model);
