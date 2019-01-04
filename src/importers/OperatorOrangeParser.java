@@ -62,7 +62,7 @@ public class OperatorOrangeParser extends OperatorParser {
                 IdentiteModel model = new IdentiteModel();
                 if(cell.getCellType() == CellType.STRING){
                     model.setNumero(cell.getStringCellValue().trim());
-                    model.setIdentite(sheet.getRow(i).getCell(cellNum + 4).getStringCellValue().trim() + " " + sheet.getRow(i).getCell(cellNum + 5).getStringCellValue().trim() + " " +
+                    model.setNom(sheet.getRow(i).getCell(cellNum + 4).getStringCellValue().trim() + " " + sheet.getRow(i).getCell(cellNum + 5).getStringCellValue().trim() + " " +
                             sheet.getRow(i).getCell(cellNum + 6).getStringCellValue().trim() + " " + sheet.getRow(i).getCell(cellNum + 7).getStringCellValue().trim() + " " +
                             sheet.getRow(i).getCell(cellNum + 8).getStringCellValue().trim());
                     model.setRef_id_observations(observationModel.getId());
