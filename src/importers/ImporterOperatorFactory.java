@@ -2,12 +2,9 @@ package importers;
 
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.openxml4j.opc.OPCPackage;
-import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 /**
@@ -30,13 +27,13 @@ public class ImporterOperatorFactory {
     private ImporterOperatorFactory() {
     }
 
-    public void getImporterParser(String fileNameOperator) throws OperatorException,IOException,InvalidFormatException{
+    public OperatorParser getImporterParser(String fileNameOperator) throws OperatorException,IOException,InvalidFormatException{
         if(fileNameOperator == null)
             throw new OperatorException("le nom du fichier ou le File d'escripteur de l'opérateur ne peut est NULL");
 
         File file = new File(fileNameOperator);
 
-        getImporterParser(file);
+        return getImporterParser(file);
     }
 
     public OperatorParser getImporterParser(File fileOperator) throws OperatorException, IOException, InvalidFormatException {
