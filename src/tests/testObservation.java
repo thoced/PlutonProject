@@ -20,7 +20,7 @@ public class testObservation {
         ObservationModel model = new ObservationModel();
         model.setNamefile("12345.xlsx");
         model.setComment("yooo");
-        model.setRef_id_dossiers(1);
+        model.setRef_id_dossiers(2);
         try {
             DAOFactory.getInstance().getObservationDAO().insert(model);
         } catch (SQLException e) {

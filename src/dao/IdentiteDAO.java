@@ -21,9 +21,15 @@ public class IdentiteDAO extends DAO<IdentiteModel> {
         PreparedStatement ps = null;
         try {
             SingletonConnection.getInstance().getConnection().setAutoCommit(false);
-            ps = SingletonConnection.getInstance().getConnection().prepareStatement("insert into t_identites (numero,identite) VALUES (?,?)", Statement.RETURN_GENERATED_KEYS);
+            ps = SingletonConnection.getInstance().getConnection().prepareStatement("insert into t_identites (numero,nom,prenom,adresse,num,boite,codepostal,ville) VALUES (?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, model.getNumero());
-            ps.setString(2, model.getIdentite());
+            ps.setString(2, model.getNom());
+            ps.setString(3, model.getPrenom());
+            ps.setString(4, model.getAdresse());
+            ps.setString(5, model.getNum());
+            ps.setString(6, model.getBoite());
+            ps.setString(7, model.getCodePostal());
+            ps.setString(8, model.getVille());
             ps.executeUpdate();
             ResultSet r = ps.getGeneratedKeys();
             r.next();
@@ -49,9 +55,10 @@ public class IdentiteDAO extends DAO<IdentiteModel> {
     }
 
     private void insertLink(IdentiteModel model) throws SQLIntegrityConstraintViolationException,SQLException {
-        PreparedStatement ps = SingletonConnection.getInstance().getConnection().prepareStatement("select id from t_identites where numero = ? AND identite = ?");
+        PreparedStatement ps = SingletonConnection.getInstance().getConnection().prepareStatement("select id from t_identites where numero = ? AND nom = ? AND prenom = ?");
         ps.setString(1,model.getNumero());
-        ps.setString(2,model.getIdentite());
+        ps.setString(2,model.getNom());
+        ps.setString(3,model.getPrenom());
         ResultSet resultSet = ps.executeQuery();
         if(resultSet.next()){
             long id = resultSet.getLong("id");
@@ -76,11 +83,23 @@ public class IdentiteDAO extends DAO<IdentiteModel> {
     @Override
     public void update(IdentiteModel model) throws SQLException {
         PreparedStatement ps = SingletonConnection.getInstance().getConnection().prepareStatement("update t_identites SET numero = ?," +
-                "identite = ?," +
+                "nom = ?," +
+                "prenom = ?," +
+                "adresse = ?," +
+                "num = ?," +
+                "boite = ?," +
+                "codepostal = ?," +
+                "ville = ?," +
                 "WHERE id = ?");
         ps.setString(1,model.getNumero());
-        ps.setString(2,model.getIdentite());
-        ps.setLong(3,model.getId());
+        ps.setString(2,model.getNom());
+        ps.setString(3,model.getPrenom());
+        ps.setString(4,model.getAdresse());
+        ps.setString(5,model.getNum());
+        ps.setString(6,model.getBoite());
+        ps.setString(7,model.getCodePostal());
+        ps.setString(8,model.getVille());
+        ps.setLong(9,model.getId());
         ps.executeUpdate();
         ps.close();
 
@@ -96,7 +115,13 @@ public class IdentiteDAO extends DAO<IdentiteModel> {
         while(resultSet.next()){
             model.setId(resultSet.getLong("id"));
             model.setNumero(resultSet.getString("numero"));
-            model.setIdentite(resultSet.getString("identite"));
+            model.setNom(resultSet.getString("nom"));
+            model.setPrenom(resultSet.getString("prenom"));
+            model.setAdresse(resultSet.getString("adresse"));
+            model.setNum(resultSet.getString("num"));
+            model.setBoite(resultSet.getString("boite"));
+            model.setCodePostal(resultSet.getString("codepostal"));
+            model.setVille(resultSet.getString("ville"));
             model.setRef_id_observations(resultSet.getLong("ref_id_observations"));
 
         }
@@ -115,7 +140,13 @@ public class IdentiteDAO extends DAO<IdentiteModel> {
             IdentiteModel model = new IdentiteModel();
             model.setId(resultSet.getLong("id"));
             model.setNumero(resultSet.getString("numero"));
-            model.setIdentite(resultSet.getString("identite"));
+            model.setNom(resultSet.getString("nom"));
+            model.setPrenom(resultSet.getString("prenom"));
+            model.setAdresse(resultSet.getString("adresse"));
+            model.setNum(resultSet.getString("num"));
+            model.setBoite(resultSet.getString("boite"));
+            model.setCodePostal(resultSet.getString("codepostal"));
+            model.setVille(resultSet.getString("ville"));
             model.setRef_id_observations(resultSet.getLong("ref_id_observations"));
             list.add(model);
         }
@@ -134,7 +165,13 @@ public class IdentiteDAO extends DAO<IdentiteModel> {
             IdentiteModel model = new IdentiteModel();
             model.setId(resultSet.getLong("id"));
             model.setNumero(resultSet.getString("numero"));
-            model.setIdentite(resultSet.getString("identite"));
+            model.setNom(resultSet.getString("nom"));
+            model.setPrenom(resultSet.getString("prenom"));
+            model.setAdresse(resultSet.getString("adresse"));
+            model.setNum(resultSet.getString("num"));
+            model.setBoite(resultSet.getString("boite"));
+            model.setCodePostal(resultSet.getString("codepostal"));
+            model.setVille(resultSet.getString("ville"));
             model.setRef_id_observations(resultSet.getLong("ref_id_observations"));
             list.add(model);
         }
@@ -152,7 +189,13 @@ public class IdentiteDAO extends DAO<IdentiteModel> {
             IdentiteModel model = new IdentiteModel();
             model.setId(resultSet.getLong("id"));
             model.setNumero(resultSet.getString("numero"));
-            model.setIdentite(resultSet.getString("identite"));
+            model.setNom(resultSet.getString("nom"));
+            model.setPrenom(resultSet.getString("prenom"));
+            model.setAdresse(resultSet.getString("adresse"));
+            model.setNum(resultSet.getString("num"));
+            model.setBoite(resultSet.getString("boite"));
+            model.setCodePostal(resultSet.getString("codepostal"));
+            model.setVille(resultSet.getString("ville"));
             model.setRef_id_observations(resultSet.getLong("ref_id_observations"));
             list.add(model);
         }
@@ -171,7 +214,13 @@ public class IdentiteDAO extends DAO<IdentiteModel> {
             IdentiteModel model = new IdentiteModel();
             model.setId(resultSet.getLong("id"));
             model.setNumero(resultSet.getString("numero"));
-            model.setIdentite(resultSet.getString("identite"));
+            model.setNom(resultSet.getString("nom"));
+            model.setPrenom(resultSet.getString("prenom"));
+            model.setAdresse(resultSet.getString("adresse"));
+            model.setNum(resultSet.getString("num"));
+            model.setBoite(resultSet.getString("boite"));
+            model.setCodePostal(resultSet.getString("codepostal"));
+            model.setVille(resultSet.getString("ville"));
             model.setRef_id_observations(resultSet.getLong("ref_id_observations"));
             list.add(model);
         }
