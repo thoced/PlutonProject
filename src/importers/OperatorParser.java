@@ -2,6 +2,7 @@ package importers;
 
 import models.EventModel;
 import models.IdentiteModel;
+import models.ObservationModel;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.util.List;
@@ -17,7 +18,9 @@ public abstract class OperatorParser {
     public abstract String getNameOperator();
     public abstract long getNbIdentites();
     public abstract long getNbEvents();
-    public abstract List<IdentiteModel> getIdentites();
+    public abstract long getNbIdentitesUnknow();
+    public abstract List<IdentiteModel> getIdentites(ObservationModel observationModel);
+    public abstract List<IdentiteModel> getIdentitesUnknow();
     public abstract List<EventModel> getEvents();
 
 }
