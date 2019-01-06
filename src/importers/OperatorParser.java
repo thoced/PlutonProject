@@ -19,7 +19,7 @@ public abstract class OperatorParser {
     public abstract long getNbIdentites();
     public abstract long getNbEvents();
     public abstract long getNbIdentitesUnknow();
-    public abstract List<IdentiteModel> getIdentites(ObservationModel observationModel);
+    public abstract List<IdentiteModel> getIdentites(ObservationModel observationModel) throws OperatorException;
     public abstract List<IdentiteModel> getIdentitesUnknow();
     public abstract List<EventModel> getEvents();
 

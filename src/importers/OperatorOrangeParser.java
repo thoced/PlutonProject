@@ -44,11 +44,13 @@ public class OperatorOrangeParser extends OperatorParser {
     }
 
     @Override
-    public List<IdentiteModel> getIdentites(ObservationModel observationModel) {
+    public List<IdentiteModel> getIdentites(ObservationModel observationModel) throws OperatorException {
 
         // recherche de la première ligne
         XSSFSheet sheet = wb.getSheetAt(0);
         XSSFRow rowLabels = getRowLabels(sheet);
+        if(rowLabels == null)
+            throw new OperatorException("Pas de ligne Label trouvée dans le fichier de l'opérateur ORANGE");
         // recherche de la colonne "Partner GSM" sur base du rowLabels
         XSSFCell cellPartner = getCellLabelPartner(rowLabels);
         // retour des couples numero et nom
@@ -62,9 +64,12 @@ public class OperatorOrangeParser extends OperatorParser {
                 IdentiteModel model = new IdentiteModel();
                 if(cell.getCellType() == CellType.STRING){
                     model.setNumero(cell.getStringCellValue().trim());
-                    model.setNom(sheet.getRow(i).getCell(cellNum + 4).getStringCellValue().trim() + " " + sheet.getRow(i).getCell(cellNum + 5).getStringCellValue().trim() + " " +
+                    model.setNom(sheet.getRow(i).getCell(cellNum + 4).getStringCellValue().trim());
+                    model.setPrenom(sheet.getRow(i).getCell(cellNum + 5).getStringCellValue().trim());
+
+                   /* model.setNom(sheet.getRow(i).getCell(cellNum + 4).getStringCellValue().trim() + " " + sheet.getRow(i).getCell(cellNum + 5).getStringCellValue().trim() + " " +
                             sheet.getRow(i).getCell(cellNum + 6).getStringCellValue().trim() + " " + sheet.getRow(i).getCell(cellNum + 7).getStringCellValue().trim() + " " +
-                            sheet.getRow(i).getCell(cellNum + 8).getStringCellValue().trim());
+                            sheet.getRow(i).getCell(cellNum + 8).getStringCellValue().trim());*/
                     model.setRef_id_observations(observationModel.getId());
                     listIdentites.add(model);
                 }
