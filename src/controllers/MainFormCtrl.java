@@ -43,6 +43,7 @@ public class MainFormCtrl implements Initializable {
             loginForm.initStyle(StageStyle.UTILITY);
             LoginFormCtrl controller = loader.getController();
             controller.setStage(loginForm);
+            loginForm.setAlwaysOnTop(true);
             loginForm.showAndWait();
             return controller.getSuccess();
 
