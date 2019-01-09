@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="325.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.LoginFormCtrl">
+   <children>
+      <Button fx:id="loginButton" layoutX="14.0" layoutY="275.0" mnemonicParsing="false" onAction="#loginButton_Click" text="Connecter..." />
+      <Button layoutX="532.0" layoutY="275.0" mnemonicParsing="false" onAction="#CancelButton_Click" text="Quitter" />
+      <Pane layoutX="150.0" layoutY="100.0" prefHeight="200.0" prefWidth="300.0">
+         <children>
+            <TextField fx:id="loginField" layoutX="137.0" layoutY="51.0" />
+            <PasswordField fx:id="pwdField" layoutX="137.0" layoutY="109.0" />
+            <Label layoutX="14.0" layoutY="55.0" text="Utilisateur:" />
+            <Label layoutX="14.0" layoutY="113.0" text="Mot de passe:" />
+            <Label fx:id="errorLabel" alignment="CENTER" layoutX="-1.0" layoutY="113.0" prefHeight="87.0" prefWidth="300.0" text="Le couple Utilisateur/Mot de Passe est incorrect. Merci de réessayer ou de contacter un administrateur." textAlignment="CENTER" textFill="RED" underline="true" visible="false" wrapText="true" />
+         </children>
+      </Pane>
+      <Label layoutX="53.0" layoutY="55.0" prefHeight="67.0" prefWidth="495.0" text="Veuillez entrer votre login et votre mot de passe pour accéder au programme" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
