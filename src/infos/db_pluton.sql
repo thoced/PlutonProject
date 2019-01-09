@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jan 02, 2019 at 01:50 PM
+-- Generation Time: Jan 09, 2019 at 07:58 PM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.2.3
 
@@ -38,13 +38,37 @@ CREATE TABLE `t_dossiers` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `t_events`
+--
+
+CREATE TABLE `t_events` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `start_time` datetime DEFAULT NULL,
+  `end_time` datetime DEFAULT NULL,
+  `caller_number` varchar(24) DEFAULT NULL,
+  `called_number` varchar(24) DEFAULT NULL,
+  `caller_imsi` varchar(24) DEFAULT NULL,
+  `called_imsi` varchar(24) DEFAULT NULL,
+  `caller_imei` varchar(24) DEFAULT NULL,
+  `called_imei` varchar(24) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `t_identites`
 --
 
 CREATE TABLE `t_identites` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `numero` varchar(32) NOT NULL,
-  `identite` varchar(256) NOT NULL
+  `nom` varchar(64) DEFAULT NULL,
+  `prenom` varchar(64) DEFAULT NULL,
+  `adresse` varchar(256) DEFAULT NULL,
+  `num` varchar(16) DEFAULT NULL,
+  `boite` varchar(16) DEFAULT NULL,
+  `codepostal` varchar(16) DEFAULT NULL,
+  `ville` varchar(64) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -110,11 +134,17 @@ ALTER TABLE `t_dossiers`
   ADD KEY `index_foreign_ref_id_sections` (`ref_id_sections`);
 
 --
+-- Indexes for table `t_events`
+--
+ALTER TABLE `t_events`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `t_identites`
 --
 ALTER TABLE `t_identites`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `unique_couple_numero_identite` (`numero`,`identite`);
+  ADD UNIQUE KEY `unique_couple_numero_identite` (`numero`,`nom`,`prenom`,`adresse`) USING BTREE;
 
 --
 -- Indexes for table `t_link_identites_observations`
@@ -152,25 +182,31 @@ ALTER TABLE `t_users`
 -- AUTO_INCREMENT for table `t_dossiers`
 --
 ALTER TABLE `t_dossiers`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `t_events`
+--
+ALTER TABLE `t_events`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `t_identites`
 --
 ALTER TABLE `t_identites`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `t_observations`
 --
 ALTER TABLE `t_observations`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `t_sections`
 --
 ALTER TABLE `t_sections`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `t_users`
