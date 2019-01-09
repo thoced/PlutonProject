@@ -13,7 +13,7 @@ public class Main extends Application {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("views/MainForm.fxml"));
         Parent root = loader.load();
         MainFormCtrl controller = loader.getController();
-        controller.setStage(primaryStage);
+        controller.InitializeComponents(primaryStage);
         primaryStage.setTitle("Pluton Project");
         primaryStage.setScene(new Scene(root, 600, 325));
         primaryStage.show();

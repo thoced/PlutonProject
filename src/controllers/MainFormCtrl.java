@@ -1,14 +1,10 @@
 package controllers;
 
-import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Control;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -17,13 +13,13 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class MainFormCtrl implements Initializable {
+public class MainFormCtrl implements Initializable,PlutonControllers {
 
     private Stage stage;
 
     @FXML
     public void initialize(URL location, ResourceBundle resources) {
-        if(this.LogIn() == false){
+        if(!this.LogIn()){
             Platform.exit();
         }
 
@@ -42,7 +38,7 @@ public class MainFormCtrl implements Initializable {
             loginForm.setScene(scene);
             loginForm.initStyle(StageStyle.UTILITY);
             LoginFormCtrl controller = loader.getController();
-            controller.setStage(loginForm);
+            controller.InitializeComponents(stage);
             loginForm.setAlwaysOnTop(true);
             loginForm.showAndWait();
             return controller.getSuccess();
@@ -54,12 +50,8 @@ public class MainFormCtrl implements Initializable {
 
     }
 
-    public Stage getStage() {
-        return stage;
-    }
-
-    public void setStage(Stage stage) {
+    @Override
+    public void InitializeComponents(Stage stage) {
         this.stage = stage;
     }
-
 }
