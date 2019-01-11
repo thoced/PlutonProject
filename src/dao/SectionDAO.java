@@ -17,6 +17,9 @@ import java.util.List;
  */
 
 public class SectionDAO extends DAO<SectionModel> {
+
+    public enum COLUMNS {NAME,COMMENT};
+
     @Override
     public void insert(SectionModel model) throws SQLException {
         PreparedStatement ps = SingletonConnection.getInstance().getConnection().prepareStatement("insert into t_sections (name,comment) VALUES (?,?)");
@@ -60,9 +63,30 @@ public class SectionDAO extends DAO<SectionModel> {
     }
 
     @Override
-    public List<SectionModel> selectAll() throws SQLException {
+        public List<SectionModel> selectAll() throws SQLException {
+            Statement st = SingletonConnection.getInstance().getConnection().createStatement();
+            ResultSet resultSet  = st.executeQuery("select * from t_sections");
+            List<SectionModel> list = new ArrayList<SectionModel>();
+            while(resultSet.next()){
+                SectionModel model = new SectionModel();
+                model.setId(resultSet.getLong("id"));
+                model.setName(resultSet.getString("name"));
+                model.setComment(resultSet.getString("comment"));
+                list.add(model);
+            }
+            return list;
+    }
+
+    @Override
+    public List<SectionModel> selectAll(int orderingBy, boolean direction) throws SQLException {
         Statement st = SingletonConnection.getInstance().getConnection().createStatement();
-        ResultSet resultSet  = st.executeQuery("select * from t_sections");
+        String columnSort = "name";
+        switch (orderingBy){
+            case 0: columnSort = "id"; break;
+            case 2: columnSort = "comment"; break;
+        }
+
+        ResultSet resultSet  = st.executeQuery("select * from t_sections order by " + columnSort + " " + (direction?"ASC":"DESC"));
         List<SectionModel> list = new ArrayList<SectionModel>();
         while(resultSet.next()){
             SectionModel model = new SectionModel();
@@ -73,6 +97,7 @@ public class SectionDAO extends DAO<SectionModel> {
         }
         return list;
     }
+
 
     @Override
     public List<SectionModel> selectFromForeignKey(long id) throws SQLException {

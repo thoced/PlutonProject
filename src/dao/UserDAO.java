@@ -108,6 +108,11 @@ public class UserDAO extends DAO<UserModel> {
     }
 
     @Override
+    public List<UserModel> selectAll(int orderingBy, boolean direction) throws SQLException {
+        return null;
+    }
+
+    @Override
     public List<UserModel> selectFromForeignKey(long id) throws SQLException {
         PreparedStatement ps = SingletonConnection.getInstance().getConnection().prepareStatement("select * from t_users where ref_id_sections = ?");
         ps.setLong(1,id);
