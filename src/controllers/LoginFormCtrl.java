@@ -1,15 +1,21 @@
 package controllers;
 
+import dao.DAO;
+import dao.DAOFactory;
+import dao.UserDAO;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
+import models.UserModel;
+import org.apache.commons.codec.digest.DigestUtils;
 
-import java.awt.event.KeyEvent;
 
 //Controller du LoginForm
-public class LoginFormCtrl implements PlutonControllers {
+public class LoginFormCtrl implements PlutonController {
+
 
     //region Membres
     @FXML
@@ -35,9 +41,10 @@ public class LoginFormCtrl implements PlutonControllers {
 
     @FXML
     public void loginButton_Click(){
-
-        //Tester le couple Login/MDP
-        if(loginField.getText().compareTo("Police") == 0 && pwdField.getText().compareTo("Zp5278") == 0){
+        DAO user = DAOFactory.getInstance().getUserDAO();
+        UserModel model = ((UserDAO)user).find(this.loginField.getText());
+        String userPwd = DigestUtils.md5Hex(pwdField.getText());
+        if(userPwd.equals(model.getPassword())){
             this.success = true;
             this.loginButton.getScene().getWindow().hide();
         }
@@ -73,6 +80,7 @@ public class LoginFormCtrl implements PlutonControllers {
 
     public void InitializeComponents(Stage stage) {
         this.stage = stage;
+
         this.pwdField.setOnKeyReleased(new EventHandler<javafx.scene.input.KeyEvent>() {
             @Override
             public void handle(javafx.scene.input.KeyEvent event) {LoginFormCtrl.this.pwdField_KeyPress(event);}
