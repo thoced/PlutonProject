@@ -39,9 +39,6 @@ public class SectionModel extends ModelBase{
 
     @Override
     public String toString() {
-        return super.toString() +  " SectionModel{" +
-                "name=" + name +
-                ", comment=" + comment +
-                '}';
+       return getName();
     }
 }
