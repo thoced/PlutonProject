@@ -5,12 +5,14 @@ import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
@@ -34,6 +36,10 @@ public class MainFormCtrl implements PlutonController, Initializable, ChangeList
 
     private  TreeItem root;
     private TreeItem rootCase;
+
+    @FXML
+    MenuItem menuClose;
+
 
     @FXML
     TreeView sectionTreeView;
@@ -110,6 +116,13 @@ public class MainFormCtrl implements PlutonController, Initializable, ChangeList
 
         //endregion
 
+        // initialisation des menuItems
+        menuClose.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                stage.hide();
+            }
+        });
 
     }
 
