@@ -204,6 +204,11 @@ public class IdentiteDAO extends DAO<IdentiteModel> {
     }
 
     @Override
+    public List<IdentiteModel> selectAll(int orderingBy, boolean direction) throws SQLException {
+        return null;
+    }
+
+    @Override
     public List<IdentiteModel> selectFromForeignKey(long id) throws SQLException {
         PreparedStatement ps = SingletonConnection.getInstance().getConnection().prepareStatement("select * from t_identites INNER JOIN t_link_identites_observations WHERE " +
                 "t_identites.id = t_link_identites_observations.ref_id_identites AND ref_id_observations = ?");

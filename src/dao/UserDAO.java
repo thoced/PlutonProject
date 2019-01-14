@@ -68,6 +68,27 @@ public class UserDAO extends DAO<UserModel> {
         return model;
     }
 
+    public UserModel find(String userName){
+        try {
+            PreparedStatement ps = SingletonConnection.getInstance().getConnection().prepareStatement("select * from t_users where login = ?");
+            ps.setString(1, userName);
+            ResultSet resultSet = ps.executeQuery();
+            UserModel model = new UserModel();
+            while (resultSet.next()) {
+                model.setId(resultSet.getLong("id"));
+                model.setNom(resultSet.getString("nom"));
+                model.setPrenom(resultSet.getString("prenom"));
+                model.setLogin(resultSet.getString("login"));
+                model.setPassword(resultSet.getString("password"));
+                model.setRef_id_sections(resultSet.getLong("ref_id_sections"));
+            }
+            return model;
+        }
+        catch (SQLException e){
+            return null;
+        }
+    }
+
     @Override
     public List<UserModel> selectAll() throws SQLException {
         Statement st = SingletonConnection.getInstance().getConnection().createStatement();
@@ -84,6 +105,11 @@ public class UserDAO extends DAO<UserModel> {
             list.add(model);
         }
         return list;
+    }
+
+    @Override
+    public List<UserModel> selectAll(int orderingBy, boolean direction) throws SQLException {
+        return null;
     }
 
     @Override

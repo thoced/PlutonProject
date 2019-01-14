@@ -49,10 +49,6 @@ public class DossierModel extends ModelBase {
 
     @Override
     public String toString() {
-        return super.toString() +  " DossierModel{" +
-                "name=" + name +
-                ", comment=" + comment +
-                ", ref_id_sections=" + ref_id_sections +
-                '}';
+        return getName();
     }
 }

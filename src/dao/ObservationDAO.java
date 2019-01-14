@@ -84,6 +84,11 @@ public class ObservationDAO extends DAO<ObservationModel> {
     }
 
     @Override
+    public List<ObservationModel> selectAll(int orderingBy, boolean direction) throws SQLException {
+        return null;
+    }
+
+    @Override
     public List<ObservationModel> selectFromForeignKey(long id) throws SQLException {
         PreparedStatement ps = SingletonConnection.getInstance().getConnection().prepareStatement("select * from t_observations where ref_id_dossiers = ?");
         ps.setLong(1,id);

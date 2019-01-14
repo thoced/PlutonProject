@@ -85,6 +85,11 @@ public class DossierDAO extends DAO<DossierModel> {
     }
 
     @Override
+    public List<DossierModel> selectAll(int orderingBy, boolean direction) throws SQLException {
+        return null;
+    }
+
+    @Override
     public List<DossierModel> selectFromForeignKey(long id) throws SQLException {
         PreparedStatement ps = SingletonConnection.getInstance().getConnection().prepareStatement("select * from t_dossiers where ref_id_sections = ?");
         ps.setLong(1,id);
