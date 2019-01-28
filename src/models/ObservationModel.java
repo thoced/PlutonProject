@@ -12,6 +12,8 @@ public class ObservationModel extends ModelBase {
 
     private StringProperty namefile = new SimpleStringProperty();
 
+    private StringProperty numero = new SimpleStringProperty();
+
     private StringProperty comment = new SimpleStringProperty();
 
     private long ref_id_dossiers;
@@ -26,6 +28,18 @@ public class ObservationModel extends ModelBase {
 
     public void setNamefile(String namefile) {
         this.namefile.set(namefile);
+    }
+
+    public String getNumero() {
+        return numero.get();
+    }
+
+    public StringProperty numeroProperty() {
+        return numero;
+    }
+
+    public void setNumero(String numero) {
+        this.numero.set(numero);
     }
 
     public String getComment() {
@@ -51,11 +65,7 @@ public class ObservationModel extends ModelBase {
 
     @Override
     public String toString() {
-        return super.toString() + " ObservationModel{" +
-                "namefile=" + namefile +
-                ", comment=" + comment +
-                ", ref_id_dossiers=" + ref_id_dossiers +
-                '}';
+        return this.numero.getValue();
     }
 
 }
