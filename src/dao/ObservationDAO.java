@@ -19,10 +19,11 @@ import java.util.List;
 public class ObservationDAO extends DAO<ObservationModel> {
     @Override
     public void insert(ObservationModel model) throws SQLException {
-        PreparedStatement ps = SingletonConnection.getInstance().getConnection().prepareStatement("insert into t_observations (namefile,comment,ref_id_dossiers) VALUES (?,?,?)");
+        PreparedStatement ps = SingletonConnection.getInstance().getConnection().prepareStatement("insert into t_observations (namefile,comment,numero,ref_id_dossiers) VALUES (?,?,?)");
         ps.setString(1,model.getNamefile());
         ps.setString(2,model.getComment());
-        ps.setLong(3,model.getRef_id_dossiers());
+        ps.setString(3,model.getNumero());
+        ps.setLong(4,model.getRef_id_dossiers());
         ps.executeUpdate();
         ps.close();
 
@@ -40,11 +41,13 @@ public class ObservationDAO extends DAO<ObservationModel> {
     public void update(ObservationModel model) throws SQLException {
         PreparedStatement ps = SingletonConnection.getInstance().getConnection().prepareStatement("update t_observations SET namefile = ?," +
                 "comment = ?, " +
+                "numero = ?, " +
                 "ref_id_dossiers = ? WHERE id = ?");
         ps.setString(1,model.getNamefile());
         ps.setString(2,model.getComment());
-        ps.setLong(3,model.getRef_id_dossiers());
-        ps.setLong(4,model.getId());
+        ps.setString(3,model.getNumero());
+        ps.setLong(4,model.getRef_id_dossiers());
+        ps.setLong(5,model.getId());
         ps.executeUpdate();
         ps.close();
 
@@ -60,6 +63,7 @@ public class ObservationDAO extends DAO<ObservationModel> {
             model.setId(resultSet.getLong("id"));
             model.setNamefile(resultSet.getString("namefile"));
             model.setComment(resultSet.getString("comment"));
+            model.setNumero(resultSet.getString("numero"));
             model.setRef_id_dossiers(resultSet.getLong("ref_id_dossiers"));
         }
         ps.close();
@@ -76,6 +80,7 @@ public class ObservationDAO extends DAO<ObservationModel> {
             model.setId(resultSet.getLong("id"));
             model.setNamefile(resultSet.getString("namefile"));
             model.setComment(resultSet.getString("comment"));
+            model.setNumero(resultSet.getString("numero"));
             model.setRef_id_dossiers(resultSet.getLong("ref_id_dossiers"));
             list.add(model);
         }
@@ -99,6 +104,7 @@ public class ObservationDAO extends DAO<ObservationModel> {
             model.setId(resultSet.getLong("id"));
             model.setNamefile(resultSet.getString("namefile"));
             model.setComment(resultSet.getString("comment"));
+            model.setNumero(resultSet.getString("numero"));
             model.setRef_id_dossiers(resultSet.getLong("ref_id_dossiers"));
             list.add(model);
         }
