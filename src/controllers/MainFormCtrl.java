@@ -7,7 +7,6 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -21,6 +20,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import models.DossierModel;
+import models.ObservationModel;
 import models.SectionModel;
 
 import javax.swing.event.ChangeEvent;
@@ -30,7 +30,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class MainFormCtrl implements PlutonController, Initializable, ChangeListener<TreeItem<SectionModel>> {
+public class MainFormCtrl implements PlutonController, Initializable {
 
     private Stage stage;
 
@@ -39,13 +39,10 @@ public class MainFormCtrl implements PlutonController, Initializable, ChangeList
 
     @FXML
     MenuItem menuClose;
-
-
     @FXML
     TreeView sectionTreeView;
     @FXML
     TreeView casesTreeView;
-
     @FXML
     SplitPane splitPane;
 
@@ -95,7 +92,68 @@ public class MainFormCtrl implements PlutonController, Initializable, ChangeList
         this.casesTreeView.setRoot(rootCase);
 
 
-        this.sectionTreeView.getSelectionModel().selectedItemProperty().addListener(this);
+        this.sectionTreeView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
+            @Override
+            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
+
+                TreeItem<SectionModel> value = (TreeItem<SectionModel>) newValue;
+
+                if(newValue == null)
+                    return;
+
+                rootCase.getChildren().clear();
+
+                if(newValue == root)
+                    return;
+
+                try {
+                    List<DossierModel> dossiers = DAOFactory.getInstance().getDossierDAO().selectFromForeignKey(value.getValue().getId());
+
+                    for(DossierModel dossier : dossiers){
+                        TreeItem<Object> itemDossier = new TreeItem<Object>();
+                        itemDossier.setValue(dossier);
+                        rootCase.getChildren().add(itemDossier);
+
+                    }
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        this.casesTreeView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
+            @Override
+            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
+
+                TreeItem<Object> value  = (TreeItem<Object>) newValue;
+                if(value != null) {
+                    try{
+
+
+                        DossierModel model = (DossierModel) value.getValue();
+                            if (model != null) {
+                                try {
+                                    List<ObservationModel> observations = DAOFactory.getInstance().getObservationDAO().selectFromForeignKey(model.getId());
+                                    value.getChildren().clear();
+                                    for (ObservationModel observation : observations) {
+                                        TreeItem<Object> itemObservation = new TreeItem<>();
+                                        itemObservation.setValue(observation);
+                                        value.getChildren().add(itemObservation);
+
+                                    }
+
+                                } catch (SQLException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                    } catch(ClassCastException cce){
+
+                    }
+                }
+
+            }
+        });
 
 
         try {
@@ -127,30 +185,5 @@ public class MainFormCtrl implements PlutonController, Initializable, ChangeList
     }
 
 
-    @Override
-    public void changed(ObservableValue<? extends TreeItem<SectionModel>> observable, TreeItem<SectionModel> oldValue, TreeItem<SectionModel> newValue) {
 
-        if(newValue == null)
-            return;
-
-        rootCase.getChildren().clear();
-
-        if(newValue == root)
-            return;
-
-        try {
-            List<DossierModel> dossiers = DAOFactory.getInstance().getDossierDAO().selectFromForeignKey(newValue.getValue().getId());
-
-            for(DossierModel model : dossiers){
-                TreeItem<DossierModel> itemDossier = new TreeItem<>();
-                itemDossier.setValue(model);
-                rootCase.getChildren().add(itemDossier);
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-
-    }
 }
